@@ -3,9 +3,10 @@ class SearchController < ApplicationController
     zip = params["q"]
     @conn = Faraday.new(url: "https://developer.nrel.gov") do |faraday|
       faraday.params["fuel_type"] = "ELEC,LPG"
-      faraday.params["api_key"] = ENV["nrel_key"]
       faraday.params["location"] = zip
       faraday.params["radius"] = 6.0
+      faraday.params["limit"] = 10
+      faraday.params["api_key"] = ENV["nrel_key"]
       faraday.adapter Faraday.default_adapter
     end
 

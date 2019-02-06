@@ -15,13 +15,6 @@ feature 'user can visit root page' do
     expect(page).to have_content("10 Closest Stations")
     expect(page).to have_css(".station", count: 10)
     # And the stations should be limited to Electric and Propane
-    expect(page).to have_content("ELEC")
-    expect(page).to have_content("LPG")
-    expect(page).to_not have_content("BD")
-    expect(page).to_not have_content("CNG")
-    expect(page).to_not have_content("E85")
-    expect(page).to_not have_content("HY")
-    expect(page).to_not have_content("LNG")
     # And for each of the stations I should see Name, Address, Fuel Types, Distance, and Access Times
     within(first(".station"))do
       expect(page).to have_css(".name")
@@ -29,6 +22,16 @@ feature 'user can visit root page' do
       expect(page).to have_css(".fuel_type")
       expect(page).to have_css(".distance")
       expect(page).to have_css(".access_times")
+    end
+    # save_and_open_page
+    within(first(".fuel_type"))do
+      expect(page).to have_content("ELEC")
+      expect(page).to have_content("LPG")
+      expect(page).to_not have_content("BD")
+      expect(page).to_not have_content("CNG")
+      expect(page).to_not have_content("E85")
+      expect(page).to_not have_content("HY")
+      expect(page).to_not have_content("LNG")
     end
   end
 end
