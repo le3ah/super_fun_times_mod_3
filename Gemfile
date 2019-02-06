@@ -16,6 +16,9 @@ group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'
   gem 'pry'
+  gem 'rb-readline'
+  gem 'capybara'
+  gem 'launchy'
 end
 
 group :development do
