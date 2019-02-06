@@ -17,11 +17,16 @@ feature 'user can visit root page' do
     # And the stations should be limited to Electric and Propane
     expect(page).to have_content("ELEC")
     expect(page).to have_content("LPG")
+    expect(page).to_not have_content("BD")
+    expect(page).to_not have_content("CNG")
+    expect(page).to_not have_content("E85")
+    expect(page).to_not have_content("HY")
+    expect(page).to_not have_content("LNG")
     # And for each of the stations I should see Name, Address, Fuel Types, Distance, and Access Times
     within(first(".station"))do
       expect(page).to have_css(".name")
       expect(page).to have_css(".address")
-      expect(page).to have_css(".fuel_types")
+      expect(page).to have_css(".fuel_type")
       expect(page).to have_css(".distance")
       expect(page).to have_css(".access_times")
     end
