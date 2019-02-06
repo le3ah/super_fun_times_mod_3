@@ -3,14 +3,16 @@ class SearchController < ApplicationController
     zip = params["q"]
     @conn = Faraday.new(url: "https://developer.nrel.gov") do |faraday|
       faraday.params["fuel_type"] = "ELEC,LPG"
-      faraday.params["api_key"] = "SnXgFbkXBSEiZOY56gu0bq3uA7hLf0zhhEPQXJ3O"
+      faraday.params["api_key"] = ENV["nrel_key"]
       faraday.params["location"] = zip
       faraday.params["radius"] = 6.0
       faraday.adapter Faraday.default_adapter
     end
 
     response = @conn.get("/api/alt-fuel-stations/v1/nearest.json")
-    binding.pry
-    @stations = JSON.parse(response.body, symbolize_names: true)[:results]
+    results = JSON.parse(response.body, symbolize_names: true)[:results]
+    @stations = results.map do |result|
+      Station.new(result)
+    end
   end
 end
